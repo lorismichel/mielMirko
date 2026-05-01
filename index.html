@@ -50,34 +50,44 @@
       transform: scale(1.03);
     }
     
-    /* Immersive Personalizer */
-    .lifestyle-preview {
-      background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('assets/honey-jar.jpg');
-      background-size: cover;
-      background-position: center;
-      min-height: 500px;
+    /* Stylized Jar Representation */
+    .stylized-jar {
+      width: 260px;
+      height: 320px;
+      background: linear-gradient(135deg, #fdfdfd 0%, #f0f0f0 100%);
+      border-radius: 40px 40px 30px 30px;
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: 
+        0 20px 40px rgba(0,0,0,0.08),
+        inset 0 -10px 20px rgba(0,0,0,0.02);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
-    .jar-float {
-      animation: float 6s ease-in-out infinite;
-    }
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-15px); }
-      100% { transform: translateY(0px); }
-    }
-    .label-overlay {
+    .jar-lid {
       position: absolute;
-      top: 52%; 
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 58%;
-      height: 25%;
+      top: 0;
+      width: 100%;
+      height: 50px;
+      background: #1A1A1A;
+      border-radius: 35px 35px 5px 5px;
+      border-bottom: 4px solid #D4AF37;
+    }
+    .jar-label {
+      width: 90%;
+      height: 130px;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      pointer-events: none;
+      z-index: 10;
     }
     #labelPreviewText {
       font-family: 'Cormorant Garamond', serif;
@@ -85,12 +95,17 @@
       color: #1A1A1A;
       line-height: 1.1;
       width: 100%;
-      text-shadow: 0 0 1px rgba(0,0,0,0.1);
     }
-    .jar-container {
-      position: relative;
-      width: 100%;
-      max-width: 380px;
+    .jar-reflection {
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      width: 10px;
+      height: 200px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0));
+      border-radius: 10px;
+      filter: blur(2px);
+      opacity: 0.5;
     }
   </style>
 </head>
@@ -120,54 +135,57 @@
       </div>
       <h1 class="font-serif text-6xl md:text-9xl leading-tight mb-8 text-balance">Le Miel de... <br/><span class="italic text-honey font-light">Votre Signature.</span></h1>
       <p class="text-lg md:text-2xl font-light text-slate/70 max-w-3xl mx-auto mb-12 leading-relaxed text-balance">
-        Transformez l'excellence du terroir vaudois en un cadeau unique. Personnalisez l'étiquette de notre jarre emblématique pour créer votre propre édition limitée.
+        Offrez l'excellence du terroir vaudois. Personnalisez l'étiquette de votre jarre pour créer un cadeau unique et mémorable.
       </p>
       <div class="flex justify-center">
-        <a href="#personnaliser" class="px-12 py-5 bg-slate text-white text-[11px] uppercase tracking-widest font-bold hover:bg-honey transition-all shadow-2xl">Commencer l'expérience</a>
+        <a href="#personnaliser" class="px-12 py-5 bg-slate text-white text-[11px] uppercase tracking-widest font-bold hover:bg-honey transition-all shadow-2xl">Commencer la création</a>
       </div>
     </div>
   </section>
 
-  <!-- Interactive Personalizer - Immersive Mode -->
-  <section id="personnaliser" class="py-24 bg-white">
+  <!-- Interactive Personalizer - Stylized Mode -->
+  <section id="personnaliser" class="py-24 bg-white border-y border-black/5">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-20">
-        <h2 class="font-serif text-5xl md:text-7xl mb-6">Édition Signature</h2>
-        <p class="text-slate/50 max-w-xl mx-auto text-lg italic font-serif">"Inscrivez votre nom dans l'histoire de notre terroir."</p>
+        <h2 class="font-serif text-5xl md:text-7xl mb-6 italic">Signature Édition</h2>
+        <p class="text-slate/50 max-w-xl mx-auto text-lg">Créez une étiquette épurée et élégante qui porte votre nom.</p>
       </div>
 
-      <div class="grid lg:grid-cols-2 gap-0 rounded-sm overflow-hidden shadow-2xl border border-black/5">
-        <!-- Live Preview: Immersive Lifestyle Background -->
-        <div class="lifestyle-preview flex items-center justify-center p-12 relative group">
-          <div class="absolute inset-0 bg-slate/10 group-hover:bg-transparent transition-colors duration-700"></div>
-          <div class="jar-container jar-float relative z-10">
-             <!-- The cutout jar overlaying the lifestyle background for realism -->
-             <img src="assets/mirko-jar.png" alt="Pot de Miel de Mirko" class="w-full h-auto drop-shadow-[0_35px_35px_rgba(0,0,0,0.4)]" />
-             <!-- Label Text Overlay -->
-             <div class="label-overlay">
-                <div class="text-[7px] md:text-[9px] uppercase tracking-[0.25em] text-slate/60 mb-1">Miel Artisanal</div>
-                <div id="labelPreviewText" class="text-xl md:text-4xl italic leading-tight px-2">Le Miel de Mirko</div>
-                <div class="w-12 h-[1px] bg-honey/50 my-2"></div>
-                <div class="text-[6px] md:text-[8px] uppercase tracking-[0.15em] text-slate/40 font-medium">Grandvaux • Suisse</div>
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Live Preview: Clean Stylized Representation -->
+        <div class="flex justify-center p-12 md:p-20 bg-cream rounded-sm shadow-inner relative overflow-hidden group">
+          <div class="absolute inset-0 bg-honey/5 opacity-40"></div>
+          
+          <div class="stylized-jar animate-pulse hover:animate-none transition-all duration-500 hover:scale-[1.02]">
+             <div class="jar-lid"></div>
+             <div class="jar-reflection"></div>
+             
+             <!-- Label -->
+             <div class="jar-label">
+                <div class="text-[7px] uppercase tracking-[0.3em] text-honey font-bold mb-1">Édition Limitée</div>
+                <div class="w-8 h-[1px] bg-honey/30 mb-3"></div>
+                <div id="labelPreviewText" class="text-xl md:text-2xl italic">Le Miel de Mirko</div>
+                <div class="w-8 h-[1px] bg-honey/30 mt-3"></div>
+                <div class="text-[6px] uppercase tracking-widest text-slate/30 mt-2 font-medium">Grandvaux • Lavaux</div>
              </div>
           </div>
-          <!-- Label Detail -->
-          <div class="absolute bottom-6 right-6 text-white/40 text-[9px] uppercase tracking-widest bg-black/20 backdrop-blur-sm px-3 py-1 rounded-full">Visualisation en temps réel</div>
+
+          <div class="absolute bottom-6 right-6 text-slate/30 text-[9px] uppercase tracking-widest">Maquette Numérique</div>
         </div>
 
-        <!-- Controls: Clean & Elegant -->
-        <div class="bg-cream p-12 md:p-20 flex flex-col justify-center space-y-12">
+        <!-- Controls -->
+        <div class="space-y-12">
           <div class="space-y-6">
-            <h4 class="font-serif text-3xl italic">Personnalisation</h4>
+            <h4 class="font-serif text-3xl italic">Votre Personnalisation</h4>
             <div class="space-y-4">
-              <label class="text-[10px] uppercase tracking-[0.3em] font-bold text-slate/50">Votre Nom sur l'Étiquette</label>
+              <label class="text-[10px] uppercase tracking-[0.3em] font-bold text-slate/40">Texte principal</label>
               <div class="relative">
-                 <span class="absolute left-0 top-1/2 -translate-y-1/2 text-2xl font-serif text-slate/40 italic">Le Miel de</span>
+                 <span class="absolute left-0 top-1/2 -translate-y-1/2 text-2xl font-serif text-slate/30 italic">Le Miel de</span>
                  <input 
                   type="text" 
                   id="nameInput" 
                   maxlength="15"
-                  class="w-full bg-transparent border-b border-slate/20 pl-[110px] py-4 text-3xl font-serif focus:outline-none focus:border-honey transition-colors placeholder:text-slate/10"
+                  class="w-full bg-transparent border-b-2 border-slate/10 pl-[110px] py-4 text-3xl font-serif focus:outline-none focus:border-honey transition-colors"
                   placeholder="Mirko"
                 />
               </div>
@@ -175,80 +193,96 @@
           </div>
 
           <div class="space-y-6">
-            <label class="text-[10px] uppercase tracking-[0.3em] font-bold text-slate/50">Sélection du Terroir</label>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="p-6 bg-white border border-honey shadow-sm cursor-pointer hover:bg-honey/5 transition-colors">
-                <div class="font-serif text-xl mb-1 italic">Miel de Forêt</div>
-                <p class="text-[9px] uppercase tracking-widest text-slate/40">Caractère intense</p>
+            <label class="text-[10px] uppercase tracking-[0.3em] font-bold text-slate/40">Choix de la Variété</label>
+            <div class="grid grid-cols-2 gap-4 text-center">
+              <div class="p-6 bg-white border border-honey shadow-sm cursor-pointer hover:bg-honey/5 transition-all group">
+                <div class="font-serif text-xl mb-1 group-hover:text-honey transition-colors italic">Miel de Forêt</div>
+                <p class="text-[9px] uppercase tracking-widest text-slate/40 italic font-medium">Récolte d'Automne</p>
               </div>
-              <div class="p-6 bg-white border border-black/5 cursor-pointer hover:border-honey transition-all">
-                <div class="font-serif text-xl mb-1 italic">Miel de Fleurs</div>
-                <p class="text-[9px] uppercase tracking-widest text-slate/40">Douceur florale</p>
+              <div class="p-6 bg-white border border-black/5 cursor-pointer hover:border-honey transition-all group">
+                <div class="font-serif text-xl mb-1 group-hover:text-honey transition-colors italic">Miel de Fleurs</div>
+                <p class="text-[9px] uppercase tracking-widest text-slate/40 italic font-medium">Douceur de Printemps</p>
               </div>
             </div>
           </div>
 
-          <div class="pt-6">
-            <button class="w-full py-6 bg-slate text-white text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-honey transition-all shadow-xl flex items-center justify-center gap-4 group">
-              <i data-lucide="shopping-bag" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
-              Commander mon édition — CHF 24.00
+          <div class="pt-4">
+            <button class="w-full py-6 bg-slate text-white text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-honey transition-all shadow-2xl flex items-center justify-center gap-4 group">
+              <i data-lucide="gift" class="w-4 h-4 group-hover:rotate-12 transition-transform"></i>
+              Offrir cette Signature — CHF 24.00
             </button>
-            <p class="mt-6 text-[10px] text-center text-slate/40 uppercase tracking-[0.2em]">Expédié sous 48h dans son coffret protecteur.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Process Gallery -->
+  <!-- Storytelling Section -->
+  <section id="histoire" class="py-24 bg-cream overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
+      <div>
+        <h2 class="text-honey text-[12px] uppercase tracking-widest font-bold mb-4">Le Concept Signature</h2>
+        <h3 class="font-serif text-4xl md:text-6xl mb-8 leading-tight">Une attention personnelle, un terroir d'exception.</h3>
+        <p class="text-slate/70 leading-relaxed mb-6 text-lg">
+          Miel de Mirko réinvente le cadeau gourmand en alliant la pureté du miel de Lavaux à une personnalisation haut de gamme. 
+        </p>
+        <div class="grid grid-cols-2 gap-8 border-t border-black/5 pt-10">
+          <div class="flex flex-col items-center md:items-start">
+            <div class="font-serif text-3xl mb-1 italic text-center md:text-left">100% Local</div>
+            <p class="text-[11px] uppercase tracking-widest font-bold text-slate/40">Lavaux UNESCO</p>
+          </div>
+          <div class="flex flex-col items-center md:items-start">
+            <div class="font-serif text-3xl mb-1 italic text-center md:text-left">Artisanal</div>
+            <p class="text-[11px] uppercase tracking-widest font-bold text-slate/40">Pot Mis en Main</p>
+          </div>
+        </div>
+      </div>
+      <div class="relative grid grid-cols-2 gap-4">
+        <div class="img-hover rounded-sm shadow-xl">
+           <img src="assets/hives.jpg" alt="Ruches" class="w-full h-full object-cover aspect-[3/4]" />
+        </div>
+        <div class="img-hover rounded-sm shadow-xl translate-y-12">
+           <img src="assets/honey-pouring.jpg" alt="Bees" class="w-full h-full object-cover aspect-[3/4]" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
   <section id="galerie" class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
-       <h2 class="font-serif text-5xl md:text-6xl mb-4 italic text-honey">L'Art de l'Apiculture</h2>
-       <p class="text-slate/50 max-w-lg mx-auto">Chaque étape de la production est réalisée avec le plus grand soin au cœur du Lavaux.</p>
+       <h2 class="font-serif text-5xl md:text-6xl mb-4 italic text-honey text-center mx-auto">Galerie du Terroir</h2>
     </div>
-    
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
-      <div class="space-y-6" data-aos="fade-up">
-        <div class="img-hover rounded-sm shadow-lg aspect-square">
-           <img src="assets/apiary.jpg" class="w-full h-full object-cover" alt="Apiary" />
-        </div>
-        <h4 class="font-serif text-2xl italic">Le Rucher</h4>
-        <p class="text-slate/60 text-sm leading-relaxed">Nos ruches surplombent le lac Léman, offrant à nos abeilles un environnement préservé et une flore diversifiée.</p>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 px-6">
+      <div class="md:col-span-2 h-[350px] img-hover rounded-sm shadow-md">
+         <img src="assets/apiary.jpg" class="w-full h-full object-cover" alt="Apiary" />
       </div>
-      <div class="space-y-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="img-hover rounded-sm shadow-lg aspect-square">
-           <img src="assets/extraction.jpg" class="w-full h-full object-cover" alt="Extraction" />
-        </div>
-        <h4 class="font-serif text-2xl italic">L'Extraction</h4>
-        <p class="text-slate/60 text-sm leading-relaxed">Récolté à maturité, notre miel est extrait mécaniquement à froid pour conserver toute sa richesse nutritionnelle.</p>
+      <div class="h-[350px] img-hover rounded-sm shadow-md">
+         <img src="assets/flowers.jpg" class="w-full h-full object-cover" alt="Flowers" />
       </div>
-      <div class="space-y-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="img-hover rounded-sm shadow-lg aspect-square">
-           <img src="assets/honey-pouring.jpg" class="w-full h-full object-cover" alt="Pouring" />
-        </div>
-        <h4 class="font-serif text-2xl italic">Le Flaconnage</h4>
-        <p class="text-slate/60 text-sm leading-relaxed">Chaque pot est rempli à la main et étiqueté avec votre personnalisation finale pour un résultat parfait.</p>
+      <div class="h-[350px] img-hover rounded-sm shadow-md">
+         <img src="assets/beekeeper.jpg" class="w-full h-full object-cover" alt="Beekeeper" />
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-slate py-24 text-white/30">
-    <div class="max-w-7xl mx-auto px-6">
+  <footer class="bg-slate py-20 text-white/30">
+    <div class="max-w-7xl mx-auto px-6 text-center md:text-left">
       <div class="flex flex-col md:flex-row justify-between items-center gap-12">
         <div class="flex items-center gap-4">
-          <img src="assets/logo.svg" alt="Logo" class="h-12 w-auto brightness-0 invert opacity-40" />
-          <div class="font-serif text-3xl tracking-widest uppercase text-white/80">Miel de Mirko</div>
+          <img src="assets/logo.svg" alt="Logo" class="h-10 w-auto brightness-0 invert opacity-40" />
+          <div class="font-serif text-2xl tracking-widest uppercase text-white/80">Miel de Mirko</div>
         </div>
-        <div class="flex gap-10 text-[10px] uppercase tracking-[0.3em] font-bold">
-          <a href="#" class="hover:text-honey transition-colors">Terroir</a>
-          <a href="#" class="hover:text-honey transition-colors">Engagement</a>
-          <a href="#" class="hover:text-honey transition-colors">Contact</a>
+        <div class="flex gap-10 text-[10px] uppercase tracking-widest font-bold">
+          <a href="#" class="hover:text-white transition-colors">Contact</a>
+          <a href="#" class="hover:text-white transition-colors">Instagram</a>
+          <a href="#" class="hover:text-white transition-colors">Vaud, Suisse</a>
         </div>
       </div>
-      <div class="mt-20 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between gap-6 text-[9px] uppercase tracking-[0.25em]">
-        <div>© <span id="year"></span> — Artisanat de Grandvaux. Tous droits réservés.</div>
-        <div>Vaud, Suisse • Vente Directe • Éditions Personnalisées</div>
+      <div class="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between gap-4 text-[9px] uppercase tracking-widest opacity-60">
+        <div>© <span id="year"></span> — Miel de Mirko. Prototype Réalisé pour l'Excellence.</div>
+        <div>Vente Artisanale Directe • Gifting Edition</div>
       </div>
     </div>
   </footer>
@@ -256,17 +290,11 @@
   <script>
     lucide.createIcons();
     document.getElementById('year').textContent = new Date().getFullYear();
-    
     const nameInput = document.getElementById('nameInput');
     const labelPreviewText = document.getElementById('labelPreviewText');
-    
     nameInput.addEventListener('input', (e) => {
       const val = e.target.value.trim();
-      if (val) {
-        labelPreviewText.textContent = `Le Miel de ${val}`;
-      } else {
-        labelPreviewText.textContent = "Le Miel de Mirko";
-      }
+      labelPreviewText.textContent = val ? `Le Miel de ${val}` : "Le Miel de Mirko";
     });
   </script>
 </body>
